@@ -1,0 +1,22 @@
+create table order_list (
+   order_no	number(7)  not null,
+   menu_id	varchar(5) not null,
+   quantity	number(2),
+   price	number(6,2),
+primary key(order_no,menu_id),
+foreign key(order_no) references food_order(order_no),
+foreign key(menu_id) references menu(menu_id)
+);
+
+cl scr
+PROMPT 'Data entry for ORDER LIST table'
+PROMPT
+PROMPT
+
+ACCEPT v_order_no     number 	FORMAT '99999999'   	 PROMPT 'Enter Order No:    '
+ACCEPT v_menu_id	char 	FORMAT 'A25'             PROMPT 'Enter Menu ID:  '
+ACCEPT v_quantity     number 	FORMAT '99'       	 PROMPT 'Enter Quantity: '
+ACCEPT v_price        number  	FORMAT '999999.99'      PROMPT 'Enter Price:      '
+
+INSERT INTO order_list VALUES
+(&v_order_no,'&v_menu_id',&v_quantity,&v_price);

@@ -1,0 +1,39 @@
+create table food_order (
+   order_no		number(7) not null,
+   order_date		date,
+   cust_no		number(7),
+   staff_no		number(4),
+   total_items		number(2),
+   food_amount		number(7,2),
+   SST			number(6,2),
+   service_charge	number(6,2),
+primary key(order_no),
+foreign key(cust_no)  references customer(cust_no),
+foreign key(staff_no) references staff(staff_id)
+);
+
+
+*/
+
+-- First, change Oracle's default date format to Malaysian date format
+-- The new date format will be maintained until you terminate the session i.e. logout
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY'; 
+
+cl scr
+PROMPT 'Data entry for food_order table'
+PROMPT
+PROMPT
+
+ACCEPT v_order_no      	  number FORMAT '9999999'       PROMPT 'Enter Order number	:'
+ACCEPT v_order_date  	  date   FORMAT 'dd/mm/yyyy' 	PROMPT 'Enter Order date	:'
+ACCEPT v_cust_no       	  number FORMAT '9999999'  	PROMPT 'Enter Customer ID	:'
+ACCEPT v_staff_no	  number FORMAT '9999' 		PROMPT 'Enter Staff ID	 	:'
+ACCEPT v_total_items      number FORMAT '99'         	PROMPT 'Enter Number of items	:'
+ACCEPT v_food_amount      number FORMAT '9999999.99'    PROMPT 'Enter Amount of foods	:'
+ACCEPT v_SST		  number FORMAT '999999.99'     PROMPT 'Enter SST		:'
+ACCEPT v_service_charge   number FORMAT '999999.99'     PROMPT 'Enter Service charge	:'
+
+--execute the INSERT statement
+INSERT INTO food_order VALUES
+(&v_order_no,'&v_order_date',&v_cust_no,&v_staff_no,&v_total_items,&v_food_amount,&v_SST,&v_service_charge);

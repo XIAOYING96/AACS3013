@@ -1,0 +1,28 @@
+create table menu (
+   menu_id		varchar(5)  not null,
+   description		varchar(30) not null,
+   price		number(6,2),
+   date_introduced	date,
+   cat_id		varchar(5),
+   remarks		varchar(50),
+primary key(menu_id),
+foreign key(cat_id) references category(cat_id)
+);
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY'; 
+
+cl scr
+PROMPT 'Data entry for MENU table'
+PROMPT
+PROMPT
+
+ACCEPT v_menu_ID      	  char   FORMAT 'A5'         PROMPT 'Enter Menu ID:'
+ACCEPT v_description  	  char   FORMAT 'A30'        PROMPT 'Enter Menu discription:'
+ACCEPT v_price        	  number FORMAT '999999.99'  PROMPT 'Enter Menu price:'
+ACCEPT v_date_Introduced  date   FORMAT 'dd/mm/yyyy' PROMPT 'Enter Menu introduced date:'
+ACCEPT v_cat_ID           char   FORMAT 'A5'         PROMPT 'Enter Menu category ID:'
+ACCEPT v_remarks          char   FORMAT 'A50'        PROMPT 'Enter Menu remarks:'
+
+--execute the INSERT statement
+INSERT INTO menu VALUES
+('&v_menu_ID','&v_description',&v_price,'&v_date_Introduced','&v_cat_ID','&v_remarks');
